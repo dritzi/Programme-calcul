@@ -10,19 +10,19 @@ namespace Programme_calcul
     {
         
 
-        int operandeGauche { get; set; }
-        int operandeDroite { get; set; }
+        double operandeGauche { get; set; }
+        double operandeDroite { get; set; }
         int operateur { get; set; }
 
-        public Opérations(int x,int y)
+        public Opérations(double x,double y)
         {
             this.operandeGauche = x;
             this.operandeDroite = y;
             this.operateur = Choix();
             
-            Console.WriteLine(Convert.ToString(operateur));
+            // Console.WriteLine(Convert.ToString(operateur));
 
-            int resultat=Calcul(operandeGauche, operandeDroite, operateur);
+            double resultat=Calcul(operandeGauche, operandeDroite, operateur);
             Console.WriteLine(resultat + "\n");
             
         }
@@ -31,7 +31,7 @@ namespace Programme_calcul
 
         private int Choix()
         {
-           ConsoleKeyInfo info = Console.ReadKey(true);         
+           ConsoleKeyInfo info = Console.ReadKey(false);         
             do
             {
             Console.WriteLine("Quelle opération voulez-vous réaliser ?");
@@ -39,18 +39,16 @@ namespace Programme_calcul
             Console.WriteLine("2- Soustraction");
             Console.WriteLine("3- Multiplication");
             Console.WriteLine("4- Division");
-            info = Console.ReadKey(true);
+            info = Console.ReadKey(false);
             }
             while (info.Key != ConsoleKey.D1 && info.Key != ConsoleKey.D2 && info.Key != ConsoleKey.D3 && info.Key != ConsoleKey.D4);
             return info.KeyChar;
         }
 
-        private int Calcul(int x,int y,int op)
+        private double Calcul(double x,double y,int op)
         {
             switch (op-48)
             {
-                case 0:
-                    return 0;
                     
                 case 1:
                     return x + y;               
