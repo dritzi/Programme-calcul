@@ -13,6 +13,8 @@ namespace Programme_calcul
         private static bool onContinue = true;
         private static string reponse;
 
+        public static int op { get; private set; }
+
         static void Main(string[] args)
         {
             do
@@ -26,6 +28,7 @@ namespace Programme_calcul
                 reponse = Console.ReadLine();
                 if (reponse != "o" && reponse != "O")
                         onContinue = false;
+                
             }
             while (onContinue);
 

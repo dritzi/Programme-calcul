@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MySql.Data.MySqlClient;
+
 
 namespace Programme_calcul
 {
@@ -10,28 +12,49 @@ namespace Programme_calcul
     {
         
 
-        int operandeGauche { get; set; }
-        int operandeDroite { get; set; }
-        int operateur { get; set; }
+        double operandeGauche { get; set; }
+        double operandeDroite { get; set; }
+        public int operateur { get; set; }
+         
+        
 
-        public Opérations(int x,int y)
+        public Opérations(double x,double y)
         {
             this.operandeGauche = x;
             this.operandeDroite = y;
             this.operateur = Choix();
             
-            Console.WriteLine(Convert.ToString(operateur));
+            // Console.WriteLine(Convert.ToString(operateur));
 
-            int resultat=Calcul(operandeGauche, operandeDroite, operateur);
-            Console.WriteLine(resultat + "\n");
-            
+            double resultat=Calcul(operandeGauche, operandeDroite, operateur);
+            Console.WriteLine("\n" + resultat + "\n");
+            char cOperateur = Conversion(operateur);
+            Bdd bdd = new Bdd();
+            bdd.AddOperation(operandeGauche, operandeDroite, cOperateur);
+
         }
 
+        private char Conversion(int operateur)
+        {
+            switch (operateur - 48)
+            {
+                case 1:
+                    return '+';
+                case 2:
+                    return '-';
+                case 3:
+                    return '*';
+                case 4:
+                    return '/';
+                default:
+                    return '\0';
+            }
+        }
         
 
         private int Choix()
         {
-           ConsoleKeyInfo info = Console.ReadKey(true);         
+           ConsoleKeyInfo info;         
             do
             {
             Console.WriteLine("Quelle opération voulez-vous réaliser ?");
@@ -39,18 +62,16 @@ namespace Programme_calcul
             Console.WriteLine("2- Soustraction");
             Console.WriteLine("3- Multiplication");
             Console.WriteLine("4- Division");
-            info = Console.ReadKey(true);
+            info = Console.ReadKey(false);
             }
             while (info.Key != ConsoleKey.D1 && info.Key != ConsoleKey.D2 && info.Key != ConsoleKey.D3 && info.Key != ConsoleKey.D4);
             return info.KeyChar;
         }
 
-        private int Calcul(int x,int y,int op)
+        private double Calcul(double x,double y,int op)
         {
             switch (op-48)
             {
-                case 0:
-                    return 0;
                     
                 case 1:
                     return x + y;               
